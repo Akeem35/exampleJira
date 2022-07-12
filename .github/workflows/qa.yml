@@ -3,9 +3,9 @@ name: qa
 on:
   push:
     branches: [ qa ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/**'
 
 jobs:
 
@@ -15,3 +15,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+        
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: http://my-app-url.com
+          environment: qa
+        
+      - name: Deploy my app
+        run: |
+          # add your deployment code here
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: 'success'
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: 'failure'
