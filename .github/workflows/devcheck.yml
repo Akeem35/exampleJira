@@ -3,7 +3,7 @@ name: prcheck
 on:
   pull_request:
     branches: 
-    - "feature/**"
+      - dev
 
 jobs:
   devcheck:
