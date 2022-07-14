@@ -7,14 +7,14 @@ on:
 
 jobs:
   devcheck:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    if: "!contains(github.event.head_commit.message, 'SKIPCI')"
     name: PR check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
   something:
-    if: "contains(github.event.head_commit.message, '[skip ci]')"
+    if: "contains(github.event.head_commit.message, 'SKIPCI')"
     name: Ok
     runs-on: ubuntu-latest
     steps:
