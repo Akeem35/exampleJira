@@ -1,0 +1,20 @@
+name: devcheck
+
+on:
+  push:
+    branches: [ dev ]
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/**'
+
+jobs:
+
+  devcheck:
+    name: Dev check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        
+#       - name: Try to fail
+#       run: exit 1
