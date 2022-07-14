@@ -1,0 +1,17 @@
+name: prcheck
+
+on:
+  pull_request:
+    branches: 
+    - "feature/**"
+
+jobs:
+  devcheck:
+    name: PR check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        
+#       - name: Try to fail
+#       run: exit 1
