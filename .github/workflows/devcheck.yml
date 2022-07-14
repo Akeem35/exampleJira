@@ -1,7 +1,7 @@
-name: devcheck
+name: prcheck
 
 on:
-  push:
+  pull_request:
     branches: [ dev ]
     paths-ignore:
       - '**.md'
@@ -10,7 +10,7 @@ on:
 jobs:
 
   devcheck:
-    name: Dev check
+    name: PR check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,3 +18,4 @@ jobs:
         
 #       - name: Try to fail
 #       run: exit 1
+
